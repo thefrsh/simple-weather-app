@@ -10,8 +10,6 @@ import io.github.thefrsh.weather.R;
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity
 {
-    private static final String TAG = "Main";
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

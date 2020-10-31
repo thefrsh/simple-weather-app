@@ -1,4 +1,4 @@
-package io.github.thefrsh.weather;
+package io.github.thefrsh.weather.module;
 
 import dagger.Module;
 import dagger.hilt.InstallIn;
