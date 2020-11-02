@@ -9,17 +9,55 @@ import javax.inject.Inject;
 
 import io.github.thefrsh.weather.activity.MainActivity;
 import io.github.thefrsh.weather.model.Weather;
-import lombok.experimental.Delegate;
 
 public class WeatherViewModelImpl implements WeatherViewModel
 {
-    @Delegate
     private Weather weather;
 
     @Inject
     public WeatherViewModelImpl()
-    {
+    {}
 
+    @Override
+    public void setWeather(Weather weather)
+    {
+        this.weather = weather;
+    }
+
+    @Override
+    public String getMainText()
+    {
+        return weather.getMain();
+    }
+
+    @Override
+    public String getDescriptionText()
+    {
+        return weather.getDescription();
+    }
+
+    @Override
+    public String getTemperatureText()
+    {
+        return weather.getTemperature() + "°";
+    }
+
+    @Override
+    public String getFeelsLikeTemperatureText()
+    {
+        return "Feels " + weather.getFeelsLikeTemperature() + "°";
+    }
+
+    @Override
+    public String getPressureText()
+    {
+        return "Pressure " + weather.getPressure() + " hPa";
+    }
+
+    @Override
+    public String getWindSpeedText()
+    {
+        return "Wind " + weather.getWindSpeed() + " m/s";
     }
 
     @Override

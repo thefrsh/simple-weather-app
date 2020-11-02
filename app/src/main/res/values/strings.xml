@@ -3,4 +3,5 @@
     <string name="main_cityname_autocomplete_hint">Enter a city name</string>
     <string name="main_checkweather_button_text">Check weather</string>
     <string name="main_quit_button_text">Quit</string>
+    <string name="weather_return_button_text">Return</string>
 </resources>

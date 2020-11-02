@@ -1,9 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.WeatherActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <variable
+            name="weatherViewModel"
+            type="io.github.thefrsh.weather.viewmodel.WeatherViewModel" />
+        <variable
+            name="city"
+            type="java.lang.String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.WeatherActivity">
+
+        <TextView
+            android:id="@+id/weather_temp_textview"
+            android:layout_width="174dp"
+            android:layout_height="90dp"
+            android:text="@{weatherViewModel.temperatureText}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="80sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.535"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.372" />
+
+        <TextView
+            android:id="@+id/weather_main_textview"
+            android:layout_width="139dp"
+            android:layout_height="37dp"
+            android:text="@{weatherViewModel.mainText}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weather_temp_textview"
+            app:layout_constraintVertical_bias="0.052" />
+
+        <TextView
+            android:id="@+id/weather_city_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{city}"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@+id/weather_temp_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/weather_desc_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{weatherViewModel.descriptionText}"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weather_main_textview"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/weather_feels_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{weatherViewModel.feelsLikeTemperatureText}"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weather_desc_textview"
+            app:layout_constraintVertical_bias="0.034" />
+
+        <TextView
+            android:id="@+id/weather_pressure_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@{weatherViewModel.pressureText}"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weather_feels_textview" />
+
+        <TextView
+            android:id="@+id/weather_windspeed_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{weatherViewModel.windSpeedText}"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.219"
+            app:layout_constraintStart_toEndOf="@+id/weather_pressure_textview"
+            app:layout_constraintTop_toBottomOf="@+id/weather_feels_textview" />
+
+        <Button
+            android:id="@+id/weather_return_button"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:background="@color/cyan_darken_1"
+            android:backgroundTint="@color/cyan_darken_1"
+            android:text="@string/weather_return_button_text"
+            android:onClick="@{weatherViewModel.onReturnButtonClick}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weather_windspeed_textview"
+            app:layout_constraintVertical_bias="0.788" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
