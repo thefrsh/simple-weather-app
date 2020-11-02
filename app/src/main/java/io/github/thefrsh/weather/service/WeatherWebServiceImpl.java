@@ -1,5 +1,6 @@
 package io.github.thefrsh.weather.service;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -9,13 +10,12 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.AndroidEntryPoint;
 import io.github.thefrsh.weather.model.Weather;
 import io.github.thefrsh.weather.troubleshooting.CityNotFoundException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
-@AndroidEntryPoint
 public class WeatherWebServiceImpl implements WeatherWebService
 {
     private static final String API_KEY = "f042b204d98c95586a6c4987242f2717";
@@ -37,36 +37,36 @@ public class WeatherWebServiceImpl implements WeatherWebService
             throw new IllegalArgumentException("City name is null");
         }
 
-        var url = BASE_URL + "?q=" + city + "&units=metric" + "&APPID=" + API_KEY;
+        String url = BASE_URL + "?q=" + city + "&units=metric" + "&APPID=" + API_KEY;
 
-        var request = new Request.Builder()
+        Request request = new Request.Builder()
                 .url(url)
                 .get()
                 .build();
 
-        var weatherBuilder = Weather.builder();
+        Weather.WeatherBuilder weatherBuilder = Weather.builder();
 
-        try (var response = httpClient.newCall(request).execute())
+        try (Response response = httpClient.newCall(request).execute())
         {
             if (response.isSuccessful() && response.body() != null)
             {
-                var jsonParser = new JSONParser();
+                JSONParser jsonParser = new JSONParser();
 
-                var jsonBody = (JSONObject) jsonParser.parse(response.body().string());
+                JSONObject jsonBody = (JSONObject) jsonParser.parse(response.body().string());
 
-                var weatherArray = jsonBody.getJSONArray("weather");
-                var weatherObject = weatherArray.getJSONObject(0);
+                JSONArray weatherArray = jsonBody.getJSONArray("weather");
+                JSONObject weatherObject = weatherArray.getJSONObject(0);
 
                 weatherBuilder.main(weatherObject.getString("main"));
                 weatherBuilder.description(weatherObject.getString("description"));
 
-                var mainObject = jsonBody.getJSONObject("main");
+                JSONObject mainObject = jsonBody.getJSONObject("main");
 
                 weatherBuilder.temperature(mainObject.getDouble("temp"));
                 weatherBuilder.feelsLikeTemperature(mainObject.getDouble("feels_like"));
                 weatherBuilder.pressure(mainObject.getInt("pressure"));
 
-                var windObject = jsonBody.getJSONObject("wind");
+                JSONObject windObject = jsonBody.getJSONObject("wind");
                 weatherBuilder.windSpeed(windObject.getDouble("speed"));
             }
             else

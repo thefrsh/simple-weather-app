@@ -1,18 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="mainViewModel"
+            type="io.github.thefrsh.weather.viewmodel.MainViewModel"/>
+    </data>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.MainActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <AutoCompleteTextView
+            android:id="@+id/main_autocomplete_cityname"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/cyan_darken_1"
+            android:hint="@string/main_cityname_autocomplete_hint"
+            android:text="@={mainViewModel.city}"
+            android:cities="@{mainViewModel.getCitiesList}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/main_button_checkweather"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/cyan_darken_1"
+            android:text="@string/main_checkweather_button_text"
+            android:onClick="@{mainViewModel.onCheckWeatherButtonClick}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_autocomplete_cityname"
+            app:layout_constraintVertical_bias="0.04"
+            app:strokeColor="@color/cyan_darken_1" />
+
+        <Button
+            android:id="@+id/main_button_quit"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/black"
+            android:onClick="onQuitButtonClick"
+            android:text="@string/main_quit_button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_button_checkweather"
+            app:layout_constraintVertical_bias="0.049" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="284dp"
+            android:layout_height="57dp"
+            app:layout_constraintBottom_toTopOf="@+id/main_autocomplete_cityname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.949"
+            app:srcCompat="@drawable/weatherapp_logo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
