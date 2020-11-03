@@ -1,6 +1,5 @@
 package io.github.thefrsh.weather.model;
 
-import android.app.Service;
 import android.os.Parcel;
 import android.os.Parcelable;
 

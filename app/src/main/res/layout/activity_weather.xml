@@ -19,18 +19,18 @@
 
         <TextView
             android:id="@+id/weather_temp_textview"
-            android:layout_width="174dp"
-            android:layout_height="90dp"
+            android:layout_width="283dp"
+            android:layout_height="123dp"
             android:text="@{weatherViewModel.temperatureText}"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="80sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.535"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.372" />
+            app:layout_constraintVertical_bias="0.368" />
 
         <TextView
             android:id="@+id/weather_main_textview"
@@ -108,14 +108,15 @@
             android:id="@+id/weather_return_button"
             android:layout_width="330dp"
             android:layout_height="60dp"
-            android:background="@color/cyan_darken_1"
             android:backgroundTint="@color/cyan_darken_1"
-            android:text="@string/weather_return_button_text"
             android:onClick="@{weatherViewModel.onReturnButtonClick}"
+            android:text="@string/weather_return_button_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/weather_windspeed_textview"
-            app:layout_constraintVertical_bias="0.788" />
+            app:layout_constraintTop_toBottomOf="@+id/weather_feels_textview"
+            app:layout_constraintVertical_bias="0.835"
+            app:strokeColor="@color/cyan_darken_1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

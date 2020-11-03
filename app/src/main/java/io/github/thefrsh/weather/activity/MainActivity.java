@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.github.thefrsh.weather.R;
 import io.github.thefrsh.weather.databinding.ActivityMainBinding;
 import io.github.thefrsh.weather.dialog.QuitDialog;
+import io.github.thefrsh.weather.rx.RxEventType;
 import io.github.thefrsh.weather.viewmodel.MainViewModel;
+import io.reactivex.disposables.Disposable;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity
@@ -43,6 +45,20 @@ public class MainActivity extends AppCompatActivity
         mainViewModel.setCitiesList(loadCitiesListFromAsset());
 
         binding.setMainViewModel(mainViewModel);
+
+        Disposable disposable = mainViewModel.getEvents().subscribe(event ->
+        {
+            if (event == RxEventType.CITY_NOT_FOUND)
+            {
+                Toast.makeText(this, "Please provide correct city name",
+                        Toast.LENGTH_LONG).show();
+            }
+            else if (event == RxEventType.QUIT_ATTEMPT)
+            {
+                QuitDialog quitDialog = new QuitDialog();
+                quitDialog.show(getSupportFragmentManager(), "QuitDialog");
+            }
+        });
     }
 
     @Override
@@ -59,18 +75,12 @@ public class MainActivity extends AppCompatActivity
         mainViewModel.setCity(savedInstanceState.getString(TYPED_TEXT));
     }
 
-    public void onQuitButtonClick(View view)
-    {
-        QuitDialog quitDialog = new QuitDialog();
-        quitDialog.show(getSupportFragmentManager(), "QuitDialog");
-    }
-
     private List<String> loadCitiesListFromAsset()
     {
         AssetManager assetManager = getAssets();
 
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(assetManager.open(CITIES_LIST_FILENAME), StandardCharsets.UTF_8)))
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                assetManager.open(CITIES_LIST_FILENAME), StandardCharsets.UTF_8)))
         {
             return reader.lines().collect(Collectors.toList());
         }

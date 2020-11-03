@@ -4,6 +4,9 @@ import android.view.View;
 
 import java.util.List;
 
+import io.github.thefrsh.weather.rx.RxEventType;
+import io.reactivex.subjects.PublishSubject;
+
 public interface MainViewModel
 {
     void onCheckWeatherButtonClick(View view);
@@ -15,4 +18,8 @@ public interface MainViewModel
     void setCitiesList(List<String> citiesList);
 
     List<String> getCitiesList();
+
+    void onQuitButtonClick(View view);
+
+    PublishSubject<RxEventType> getEvents();
 }
